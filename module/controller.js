@@ -59,7 +59,23 @@ exports.login_user = function(req,res)
         {
             res.send({value:1})
         }
+    else{
     Query.find_user(login_info,function(err,results){
         if(err) throw err;
+        console.log(results);
+        if(results.length == 0)
+            {
+                console.log("ankur");
+                res.send({value:2})
+            }
+        else
+            {
+               sess = req.session;
+
+                sess.name = results[0].name;
+                console.log(sess.name);
+                res.send({name:sess.name});
+            }
     })
+}
 }

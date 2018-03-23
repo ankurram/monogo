@@ -50,12 +50,12 @@ exports.find_product_detiles = function(callback)
 }
 exports.Add_new_user = function(data1,callback)
 {
-    console.log("ankur");
+    console.log("ankur",data1);
     new_user({
     name :data1.name,
     username : data1.username,
     email : data1.email,
-    password : data1.pws})
+    password : data1.password})
     .save(function(err,results){
         if(err)throw err
         console.log("data will be save",results);
@@ -65,7 +65,14 @@ exports.Add_new_user = function(data1,callback)
 }
 exports.find_user = function(data,callback)
 {
-     console.log("user find start there");
-
+     console.log("user find start there",data);
+       var user_mail = data.user_email;
+       var password = data.user_password;
+    console.log("user_email",user_mail);
+     new_user.find({email:user_mail,password:password},[],function(err,result){
+         if(err)throw  err;
+         //console.log(result);
+         callback(null,result);
+     })
 
 }
