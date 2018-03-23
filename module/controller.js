@@ -4,32 +4,62 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 var formidable = require('formidable');
 var fs = require('fs');
-var i =0;
-exports.display_fornt_page = function(req,res)
+var session = require('express-session');
+var sess;
+
+
+
+exports.product_display = function(req,res)
 {
-    console.log("ankur");
-    Query.insert(function(err,results){
-        if(err)throw err
+     console.log("product display");
+    Query.find_product_detiles(function(err,results){
+        if(err) throw err
+         res.send(results);
+
     })
 }
-exports.register_user = function(req,res)
+
+exports.display_item = function(req,res)
 {
-    console.log("registion is start",req.body);
-     var data = {};
-     data.email  = req.body.email;
-     data.username = req.body.username;
-     Query.user_register(data,function(err,results){
-         if (err) throw err
-     })
+    console.log("ankur kaushik");
+    var image = req.query.image;
+//
+    console.log(image);
+     fs.readFile("D:/ankur-server/uploads/"+image,function(err,data){
+            if(err)throw err;
+            console.log("data",data);
+            res.writeHead(200,{'Content-type':'image/jpg'});
+                  res.end(data);
+        })
 }
-exports.all_users =  function(req,res)
+exports.register_new_user = function(req,res)
 {
-    console.log("get all users");
-     var data = {};
-     data.email  = req.body.email;
-     data.username = req.body.username;
-  
-     Query.user_register(data,function(err,results){
-         if (err) throw err
-     })
+      console.log("this is new registion page");
+        console.log(req.body);
+        var data = req.body;
+       Query.Add_new_user(data,function(err,result){
+           if(err)throw err
+           console.log("ankur",result.name);
+           res.json({
+               id:result._id,
+               name:result.name,
+               username:result.username,
+               email:result.email
+
+           });
+       })
+}
+
+exports.login_user = function(req,res)
+{
+    console.log("ankur",req.body);
+    var login_info  =req.body;
+    console.log(login_info);
+    if(login_info.user_email == '' && login_info.user_password == '')
+        {
+            res.send({value:1})
+        }
+    Query.find_user(login_info,function(err,results){
+        if(err) throw err;
+    })
 }

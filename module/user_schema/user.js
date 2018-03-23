@@ -1,6 +1,4 @@
 var mongoose = require('mongoose');
-
-
 var User = new mongoose.Schema({
     product_name: String,
     path: String,
