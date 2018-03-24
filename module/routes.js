@@ -26,6 +26,10 @@ router.route("/login")
       .post(
               controller.login_user
            )
+router.route('/user_detalis')
+      .get(
+             controller.user_info
+           )
 module.exports = function(app) {
     app.use('/info', router);
 };

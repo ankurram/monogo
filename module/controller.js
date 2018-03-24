@@ -70,12 +70,21 @@ exports.login_user = function(req,res)
             }
         else
             {
-               sess = req.session;
-
+                sess = req.session;
                 sess.name = results[0].name;
-                console.log(sess.name);
+                sess.email = results[0].email;
+                
+                
+                console.log("this login session",sess);
                 res.send({name:sess.name});
             }
     })
 }
+}
+
+exports.user_info = function(req,res)
+{
+    console.log("ankur------------------------------------------",sess);
+//    res.send({name:sess.name});
+    
 }
