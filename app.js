@@ -27,6 +27,8 @@ app.use(session({secret: 'ssshhhhh'}));
 app.use(bodyParser.urlencoded({extended: true}));
 
 process.env.APP_ROOT = __dirname;
+var CONSTANTS = require('./config/CONSTANT');
+process.PATHS = CONSTANTS.PATHS;
 //app.set('views', './view/')
 ////app.set('view engine', 'pug');
 //app.set('view engine', 'jade');

@@ -6,7 +6,8 @@ var UserReg = require('./user_schema/userreg');
 var multer = require('multer');
 var upload = multer({ dest:"./uploads/" })
 var controller = require('./controller');
-
+//var middleware = require('./middleware/checking');
+var middleware = require(process.PATHS.MIDDLEWARE)
 
 
 
@@ -29,6 +30,10 @@ router.route("/login")
 router.route('/user_detalis')
       .get(
              controller.user_info
+           )
+router.route('/address_detalis')
+      .get(
+               controller.address_info
            )
 module.exports = function(app) {
     app.use('/info', router);

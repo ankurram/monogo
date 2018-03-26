@@ -1,6 +1,7 @@
 var User = require('./user_schema/user');
 var UserReg = require('./user_schema/userreg');
 var new_user = require('./user_schema/new_user');
+var Address = require('./user_schema/address');
 var  mongoose = require('mongoose');
 const MongoClient = require('mongodb').MongoClient;
 
@@ -74,5 +75,23 @@ exports.find_user = function(data,callback)
          //console.log(result);
          callback(null,result);
      })
+
+}
+exports.find_basic_info = function(data,callback)
+{
+    console.log("this is basic info",data);
+    new_user.find({email:data.email},{ email: 1, name: 1, username: 1 },[],function(err,results){
+        if(err)throw err
+        callback(null,results);
+    })
+}
+
+exports.address_get = function(data,callback)
+{
+    console.log("this is address get",data);
+    Address.find({user_email:data},[],function(err,result){
+        if(err) throw err
+        console.log(result);
+    })
 
 }
