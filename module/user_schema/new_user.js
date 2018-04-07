@@ -4,6 +4,7 @@ var new_user = new mongoose.Schema({
     username: String,
     email:String,
     password:String,
+    profile_image:String,
     created_at: { type: Date, default: Date.now },
 	updated_at: { type: Date, default: Date.now }
 

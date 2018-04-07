@@ -8,6 +8,10 @@ var session = require('express-session');
 var middleware = require(process.PATHS.MIDDLEWARE);
 var sess;
 
+exports.display_fb_page = function(req,res){
+    console.log("ankur");
+    res.render("facebook.jade");
+}
 
 
 exports.product_display = function(req,res)
@@ -106,9 +110,73 @@ exports.user_info = function(req,res)
 }
 exports.address_info = function(req,res)
 {
-    console.log("this is address info",sess);
-    data = sess.email;
-    Query.address_get(data,function(err,result){
+
+      if(typeof sess == "undefined")
+    {
+        console.log("session is undefine");
+        res.send({re:1})
+    }
+    else
+        {
+             console.log("this is address info",sess);
+             data = sess.email;
+             Query.address_get(data,function(err,result){
+             if(err)throw err
+             console.log("address",result);
+             res.send(result);
+    })
+
+        }
+
+}
+
+exports.social_info_store = function(req,res)
+{
+    console.log("there social login atart",req.body);
+    full_user_info = req.body;
+    data = req.body.email;
+    Query.find_social_user(data,function(err,result){
+        if(err) throw err
+        if(result.length == 0)
+            {
+              Query.insert_social_info(full_user_info,function(err,result){
+              if(err)throw err
+              sess = req.session;
+              sess.name = req.body.displayName;
+              sess.email = req.body.email;
+                  console.log("this ------",sess);
+                  res.send({name:sess.name});
+              })
+            }
+        else
+            {
+                console.log("this is not-----",result);
+                sess = req.session;
+                sess.name = result[0].name;
+                sess.email = result[0].email;
+                console.log("this is session",sess);
+                res.send({name:sess.name});
+            }
+
 
     })
+}
+
+exports.insert_user_address = function(req,res)
+{
+    console.log("this add address",req.body,sess);
+   if(typeof sess == undefined)
+       {
+           res.send({value:false})
+       }
+    else
+        {
+            data = req.body;
+            email = sess.email;
+            Query.save_address(email,data,function(err,result){
+                if(err)throw err
+                res.send({value:1});
+            })
+        }
+
 }

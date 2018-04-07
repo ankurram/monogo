@@ -24,7 +24,6 @@ console.log(newUser);
 });
 
 };
-
  exports.user_register = function(data,callback)
  {
    console.log(data);
@@ -82,6 +81,7 @@ exports.find_basic_info = function(data,callback)
     console.log("this is basic info",data);
     new_user.find({email:data.email},{ email: 1, name: 1, username: 1 },[],function(err,results){
         if(err)throw err
+        console.log(results);
         callback(null,results);
     })
 }
@@ -89,9 +89,50 @@ exports.find_basic_info = function(data,callback)
 exports.address_get = function(data,callback)
 {
     console.log("this is address get",data);
-    Address.find({user_email:data},[],function(err,result){
+    Address.find({email:data},[],function(err,result){
         if(err) throw err
-        console.log(result);
+        console.log("this is address of user",result)
+        callback(null,result);
     })
 
+}
+
+exports.find_social_user = function(data,callback)
+{
+    console.log("this model start",data);
+    new_user.find({email:data},{email:1,name:1,username:1},[],function(err,results){
+        if(err)throw err
+        callback(null,results);
+    })
+}
+
+exports.insert_social_info = function(data,callback)
+{
+    console.log("this is insert social info",data);
+    new_user({
+        name : data.displayName,
+        email : data.email,
+        profile_picture : data.photoUrl})
+            .save(function(err,results){
+        if(err)throw err
+        callback(null,results);
+    })
+}
+
+exports.save_address = function(email,data,callback)
+{
+    console.log("this is inert to address infomation to user",email,data);
+    Address({
+        email:email,
+        address:data.address,
+        landmark:data.landmark,
+        city:data.city,
+        state:data.state,
+        zip_conde:data.zipcode,
+        country:data.conutry,
+        contact_no:data.contact})
+        .save(function(err,results){
+        if(err)throw err
+        callback(null,results)
+    })
 }

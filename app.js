@@ -9,9 +9,12 @@ var session = require('express-session');
 var bodyParser = require("body-parser");
 var passport = require('passport');
 var cors = require('cors');
+
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/product_info');
 var app = express();
+passport = require('passport');
+FacebookStrategy = require('passport-facebook').Strategy;
 
 
 app.use(cors());
@@ -29,11 +32,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 process.env.APP_ROOT = __dirname;
 var CONSTANTS = require('./config/CONSTANT');
 process.PATHS = CONSTANTS.PATHS;
-//app.set('views', './view/')
-////app.set('view engine', 'pug');
-//app.set('view engine', 'jade');
+app.set('views', './public/');
+//app.set('view engine', 'pug');
+app.set('view engine', 'jade');
 app.use(express.static(path.join(process.env.APP_ROOT, '')));
- 
 
 
 var routes = glob.sync(path.join(process.env.APP_ROOT, 'module/**/routes.js'));
