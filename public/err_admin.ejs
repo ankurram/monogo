@@ -1,0 +1,89 @@
+<html>
+  <title>
+        admin login
+    </title>
+    <head>
+       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../public/css/admin.css">
+        <script src="../public/js/admin.js"></script>
+    </head>
+   <style>
+
+   </style>
+   <body>
+             <header>
+
+            <nav class="navbar navbar-default" role="navigation">
+<div class="container-fluid">
+
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+            A K Cloth House
+        </a>
+    	<div style="margin-left:860px; margin-top:12px; font-size: 20px">
+
+           Admin Pannal
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+</nav>
+
+
+       </header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pr-wrap">
+                <div class="pass-reset">
+                    <label>
+                        Enter the email you signed up with</label>
+                    <input type="email" placeholder="Email" />
+                    <input type="submit" value="Submit" class="pass-reset-submit btn btn-success btn-sm" />
+                </div>
+            </div>
+            <div class="wrap">
+                <p class="form-title">
+                    Sign In</p>
+                <form class="login" name="admin_form" onsubmit="return(validate());" method="post" action="/admin/admin_login">
+                <input type="text" placeholder="Username"  name= "username" id= "Uname"/>
+                <input type="password" placeholder="Password"  name="Password" id= "Pword" />
+                <input type="submit" value="Sign In"  class="btn btn-success btn-sm"/>
+                <div class="remember-forgot">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" />
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 forgot-pass-content">
+                            <a href="javascription:void(0)" class="forgot-pass">Forgot Password</a>
+                        </div>
+                    </div>
+                </div>
+                </form>
+                <p style="color:red; margin-right:200px"><%= empty_err %></p>
+                <p style="color:red; margin-right:200px"><%= no_user %></p>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    </body>
+
+
+
+
+</html>
